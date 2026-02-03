@@ -48,7 +48,11 @@ Ask ONE short technical screening question relevant to this role.
 
         question = question.strip() or "Tell me about your technical background."
         save_message(session, "assistant", "interview", question)
-        state.messages.append(question)
+
+        state.messages.append({
+            "role": "assistant",
+            "content": question
+        })
         return state
 
     if history[-1]["role"] == "assistant" and history[-1]["stage"] == "interview":
@@ -85,7 +89,6 @@ Question:
 Answer:
 {last_a}
 """
-
     eval_resp = client.responses.create(model="gpt-4o-mini", input=eval_prompt)
 
     raw = ""
@@ -104,7 +107,7 @@ Answer:
     if len(all_evals) >= 8:
         msg = "Thank you for your time. We will review your performance."
         save_message(session, "assistant", "interview", msg)
-        state.messages.append(msg)
+        state.messages.append({"role": "assistant", "content": msg})
         state.current_step = "end"
         return state
 
@@ -122,7 +125,7 @@ Answer:
     if avg < 2.5:
         msg = "Unfortunately, your answers did not meet the technical bar."
         save_message(session, "assistant", "interview", msg)
-        state.messages.append(msg)
+        state.messages.append({"role": "assistant", "content": msg})
         state.current_step = "end"
         return state
 
@@ -164,7 +167,7 @@ Answer:
         if strong >= 2:
             msg = "Congratulations! You have passed the interview."
             save_message(session, "assistant", "interview", msg)
-            state.messages.append(msg)
+            state.messages.append({"role": "assistant", "content": msg})
             state.current_step = "scheduling"
             return state
         else:
@@ -181,7 +184,7 @@ Answer:
     if "f_resp" not in locals():
         follow = "Can you go into more technical detail?"
         save_message(session, "assistant", "interview", follow)
-        state.messages.append(follow)
+        state.messages.append({"role": "assistant", "content": follow})
         return state
 
     follow = ""
@@ -193,5 +196,5 @@ Answer:
 
     follow = follow.strip() or "Can you explain this in more detail?"
     save_message(session, "assistant", "interview", follow)
-    state.messages.append(follow)
+    state.messages.append({"role": "assistant", "content": follow})
     return state

@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const SLOTS = [9, 10, 11, 12, 14, 15, 16, 17];
+const SLOTS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 export default function BookingModal({ date, bookedSlots, onClose, onBooked }) {
   const name = "John Doe";
@@ -53,7 +53,7 @@ export default function BookingModal({ date, bookedSlots, onClose, onBooked }) {
                   disabled={isBooked}
                   onClick={() => !isBooked && handleClick(h)}
                 >
-                  {h}:00
+                  {h <= 12 ? h : h - 12}{h >= 12 ? " PM" : " AM"}
                 </button>
               );
             })}

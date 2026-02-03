@@ -10,4 +10,5 @@ def start(session_id: str, data: dict = Body(...)):
 @router.post("/chat/{session_id}")
 def chat(session_id: str, data: dict = Body(...)):
     message = data.get("message")
-    return process_message(session_id, message)
+    force_step = data.get("force_step")
+    return process_message(session_id, message, force_step)
