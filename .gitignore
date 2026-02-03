@@ -1,0 +1,35 @@
+# =========================
+# Python (ALL levels)
+# =========================
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+Server/venv/
+Server/.env
+Server/.pytest_cache/
+
+# =========================
+# Node / React
+# =========================
+Client/hr-management/node_modules/
+Client/hr-management/build/
+Client/hr-management/dist/
+Client/hr-management/.env
+Client/hr-management/.cache/
+
+# =========================
+# General
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+*.iml

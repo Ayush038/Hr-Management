@@ -1,0 +1,8 @@
+@import "./styles/calendar.css";
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}

@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+langgraph
+langchain
+pymongo
+python-dotenv
+requests
+beautifulsoup4
+openai
+selenium
+webdriver-manager
