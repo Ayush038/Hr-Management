@@ -26,22 +26,16 @@ def click_calendar(data: dict):
         print("→ Opening:", url)
         driver.get(url)
 
-        # Wait for React app to fully mount
         time.sleep(2)
 
-        print("→ Waiting for grid")
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, "grid")))
 
-        print("→ Clicking date:", date)
         wait.until(EC.element_to_be_clickable((By.ID, f"date-{date}"))).click()
 
-        print("→ Waiting for modal")
         wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "modal")))
 
-        print("→ Clicking slot:", hour)
         wait.until(EC.element_to_be_clickable((By.ID, f"slot-{date}-{hour}"))).click()
 
-        print("→ Waiting for swal confirm")
         swal_ok = wait.until(
             EC.element_to_be_clickable((By.CLASS_NAME, "swal2-confirm"))
         )
@@ -50,11 +44,9 @@ def click_calendar(data: dict):
         time.sleep(0.5)
         swal_ok.click()
 
-        print("✅ Slot clicked successfully")
         return {"status": "success"}
 
     except Exception as e:
-        print("❌ Selenium error:", str(e))
         return {"status": "error", "message": str(e)}
 
     finally:

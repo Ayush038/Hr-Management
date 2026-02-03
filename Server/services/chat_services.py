@@ -15,13 +15,10 @@ def process_message(session_id: str, message: str, force_step: str | None = None
     state = get_session(session_id)
 
     if not state:
-        print("⚠️ No session found, creating new one")
         state = AgentState(session_id=session_id)
 
-    print("➡️ Current step BEFORE:", state.current_step)
 
     if force_step:
-        print("⚠️ Forcing step to:", force_step)
         state.current_step = force_step
 
     state.messages.append({
@@ -33,17 +30,12 @@ def process_message(session_id: str, message: str, force_step: str | None = None
         save_message(session_id, "user", state.current_step, message)
 
     try:
-        print("🧠 Calling controller.step() ...")
         state = controller.step(state)
-        print("➡️ Step AFTER controller:", state.current_step)
 
         while state.current_step == "onboarding":
-            print("🔁 Auto onboarding step...")
             state = controller.step(state)
-            print("➡️ Step NOW:", state.current_step)
 
     except Exception as e:
-        print("🔥 ERROR inside controller.step():", e)
         traceback.print_exc()
         return {
             "reply": "Internal error during processing.",
@@ -56,7 +48,6 @@ def process_message(session_id: str, message: str, force_step: str | None = None
     save_session(session_id, state)
 
     history = get_messages(session_id)
-    print("📜 History length:", len(history))
 
     reply = None
     if history and history[-1]["role"] == "assistant":
@@ -65,8 +56,6 @@ def process_message(session_id: str, message: str, force_step: str | None = None
         last = state.messages[-1]
         reply = last["content"] if isinstance(last, dict) else last
 
-    print("✅ Returning step:", state.current_step)
-    print("==================================================\n")
 
     return {
         "reply": reply,
@@ -80,7 +69,6 @@ def process_message(session_id: str, message: str, force_step: str | None = None
 
 
 def init_session(session_id: str, profile: dict):
-    print("🆕 INIT SESSION:", session_id)
     state = AgentState(
         session_id=session_id,
         candidate_data=profile,
