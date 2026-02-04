@@ -1,3 +1,4 @@
+import { API_BASE } from "../config/api";
 import Swal from "sweetalert2";
 
 const SLOTS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -13,7 +14,7 @@ export default function BookingModal({
     "Unknown Candidate";
 
   const handleClick = async (hour) => {
-    await fetch("http://localhost:8000/api/book", {
+    await fetch(`${API_BASE}/api/book`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

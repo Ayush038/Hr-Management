@@ -1,3 +1,4 @@
+import { API_BASE } from "../config/api";
 import { useState, useEffect } from "react";
 import BookingModal from "../components/BookingModal";
 
@@ -25,7 +26,7 @@ export default function CalendarPage() {
   useEffect(() => {
     if (!selectedDate) return;
 
-    fetch(`http://localhost:8000/api/bookings/${selectedDate}`)
+    fetch(`${API_BASE}/api/bookings/${selectedDate}`)
       .then(res => res.json())
       .then(data => setBookedSlots(data));
   }, [selectedDate]);
@@ -64,7 +65,7 @@ export default function CalendarPage() {
             candidateName={lockedName}   // ✅ always from storage
             onClose={() => setSelectedDate(null)}
             onBooked={() => {
-              fetch(`http://localhost:8000/api/bookings/${selectedDate}`)
+              fetch(`${API_BASE}/api/bookings/${selectedDate}`)
                 .then(res => res.json())
                 .then(data => setBookedSlots(data));
             }}

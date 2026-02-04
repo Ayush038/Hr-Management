@@ -1,3 +1,4 @@
+import { API_BASE } from "../config/api";
 import { useState, useEffect, useRef } from "react";
 
 export default function InterviewStage({ sessionId, agentState, setAgentState }) {
@@ -21,7 +22,7 @@ export default function InterviewStage({ sessionId, agentState, setAgentState })
     if (!input.trim()) return;
     setSending(true);
 
-    const res = await fetch(`http://localhost:8000/agent/chat/${sessionId}`, {
+    const res = await fetch(`${API_BASE}/agent/chat/${sessionId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: input })

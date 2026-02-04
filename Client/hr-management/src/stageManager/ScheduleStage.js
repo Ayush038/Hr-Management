@@ -1,3 +1,4 @@
+import { API_BASE } from "../config/api";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -26,7 +27,7 @@ export default function ScheduleStage({ agentState, setAgentState }) {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/agent/chat/${agentState.session_id}`,
+        `${API_BASE}/agent/chat/${agentState.session_id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
