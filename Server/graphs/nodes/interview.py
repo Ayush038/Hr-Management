@@ -108,7 +108,7 @@ Answer:
         msg = "Thank you for your time. We will review your performance."
         save_message(session, "assistant", "interview", msg)
         state.messages.append({"role": "assistant", "content": msg})
-        state.current_step = "end"
+        state.current_step = "rejected"
         return state
 
     total = 0
@@ -126,7 +126,7 @@ Answer:
         msg = "Unfortunately, your answers did not meet the technical bar."
         save_message(session, "assistant", "interview", msg)
         state.messages.append({"role": "assistant", "content": msg})
-        state.current_step = "end"
+        state.current_step = "rejected"
         return state
 
     if 2.5 <= avg < 6:

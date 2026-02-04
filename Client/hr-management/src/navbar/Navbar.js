@@ -5,9 +5,17 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <h2 className="brand">HR-Management System</h2>
+      <div
+        className="nav-left"
+        onClick={() => nav("/")}
+        style={{ cursor: "pointer" }}
+      >
+        <img src="Logo.png" alt="Logo" className="logo" />
+        <h2 className="brand">HR-Management System</h2>
+      </div>
+
       <button className="nav-btn" onClick={() => nav("/calendar")}>
-        Calendar
+        <img src="calendar.png" alt="Calendar" className="icon" />
       </button>
     </div>
   );

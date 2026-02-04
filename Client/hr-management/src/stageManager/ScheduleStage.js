@@ -22,8 +22,6 @@ export default function ScheduleStage({ agentState, setAgentState }) {
     const formattedTime = to12Hour(time);
     const sentence = `I am free on ${date} at ${formattedTime}`;
 
-    console.log("📤 Scheduling sentence:", sentence);
-
     setSending(true);
 
     try {
@@ -42,7 +40,6 @@ export default function ScheduleStage({ agentState, setAgentState }) {
       const data = await res.json();
       setAgentState(data);
     } catch (err) {
-      console.error("❌ Fetch failed:", err);
       Swal.fire("Error", "Backend not reachable", "error");
     } finally {
       setSending(false);
@@ -51,24 +48,24 @@ export default function ScheduleStage({ agentState, setAgentState }) {
 
   return (
     <div className="card big animate-in center-card schedule-card">
-      <h2>📅 Select your availability</h2>
+      <h2 className="card-title">📅 Select your ⌚ Availability</h2>
       <p className="subtext">Choose a date and time for your interview</p>
 
-      <div className="schedule-grid">
-        <div>
+      <div className="schedule-grid align">
+        <div className="schedule-field">
           <label>Date</label>
           <input
             type="date"
-            className="query"
+            className="schedule-input"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
 
-        <div>
+        <div className="schedule-field">
           <label>Time (9 AM – 5 PM)</label>
           <select
-            className="query"
+            className="schedule-input"
             onChange={(e) => setTime(e.target.value)}
           >
             <option value="">Select time</option>

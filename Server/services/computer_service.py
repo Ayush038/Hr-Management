@@ -10,6 +10,7 @@ CLIENT_URL = os.getenv("CLIENT", "http://localhost:3000")
 def click_calendar(data: dict):
     date = data["date"]
     hour = data["hour"]
+    candidate_name = data.get("name") or "Unknown Candidate"
 
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")
@@ -25,6 +26,11 @@ def click_calendar(data: dict):
         url = f"{CLIENT_URL}/calendar"
         print("→ Opening:", url)
         driver.get(url)
+
+        driver.execute_script(
+            "localStorage.setItem('candidate_name', arguments[0]);",
+            candidate_name
+        )
 
         time.sleep(2)
 

@@ -5,9 +5,17 @@ export default function InterviewStage({ sessionId, agentState, setAgentState })
   const [sending, setSending] = useState(false);
   const bottomRef = useRef(null);
 
+  const [lockedSummary, setLockedSummary] = useState(null);
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [agentState]);
+  }, [agentState, sending]);
+
+  useEffect(() => {
+    if (!lockedSummary && agentState?.candidate_data?.research_summary) {
+      setLockedSummary(agentState.candidate_data.research_summary);
+    }
+  }, [agentState, lockedSummary]);
 
   const send = async () => {
     if (!input.trim()) return;
@@ -25,19 +33,53 @@ export default function InterviewStage({ sessionId, agentState, setAgentState })
     setSending(false);
   };
 
-  return (
-    <div className={`interview-layout ${agentState?.current_step === "end" ? "slide-out" : "animate-in"}`}>
-      <div className="card chat-card">
-        <h3>Interview</h3>
+  const copyText = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  };
 
-        <div className="chat-box">
+  return (
+    <div
+      className={`interview-layout ${
+        agentState?.current_step === "end" ? "slide-out" : "animate-in"
+      }`}
+    >
+      <div className="card chat-card fixed-chat">
+        <h3 className="chat-title">Interview</h3>
+
+        <div className="chat-box fixed">
           {(agentState?.messages || []).map((m, i) => (
-            <div key={i} className={`bubble ${m.role}`}>
-              {m.content}
+            <div
+              key={i}
+              className={`chat-message ${m.role === "user" ? "user" : "ai"}`}
+            >
+              <div className="bubble">
+                {m.content}
+
+                {m.role !== "user" && (
+                  <button
+                    className="copy-btn"
+                    onClick={() => copyText(m.content)}
+                    title="Copy"
+                  >
+                    📋
+                  </button>
+                )}
+              </div>
             </div>
           ))}
 
-          {sending && <div className="typing">HR Agent is typing...</div>}
+          {sending && (
+            <div className="chat-message ai">
+              <div className="thinking">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          )}
+
           <div ref={bottomRef} />
         </div>
 
@@ -47,6 +89,7 @@ export default function InterviewStage({ sessionId, agentState, setAgentState })
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your answer..."
             onKeyDown={(e) => e.key === "Enter" && send()}
+            disabled={sending}
           />
           <button onClick={send} disabled={sending}>
             Send
@@ -56,7 +99,7 @@ export default function InterviewStage({ sessionId, agentState, setAgentState })
 
       <div className="card side-card">
         <h3>Research Summary</h3>
-        <p>{agentState?.candidate_data?.research_summary || "Loading..."}</p>
+        <p>{lockedSummary || "Loading..."}</p>
       </div>
     </div>
   );

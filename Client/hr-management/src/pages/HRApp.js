@@ -8,7 +8,6 @@ export default function HRApp() {
 
   return (
     <div className="page">
-      <Navbar />
       <StageManager
         sessionId={sessionId}
         agentState={agentState}

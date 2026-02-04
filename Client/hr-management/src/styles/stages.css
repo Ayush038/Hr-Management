@@ -1,29 +1,36 @@
 .stage {
   width: 100%;
-  flex: 1;
+  min-height: calc(100vh - 90px); /* below navbar */
   display: grid;
   place-items: center;
+  padding-top: 40px;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 16px;
+  gap: 10px;              /* tighter */
+  margin-bottom: 12px;
 }
 
 .form-grid input, .query {
-  background: rgba(2,6,23,.8);
+  background: rgba(2,6,23,.2);
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 10px;
   padding: 10px;
   color: #e5e7eb;
 }
 
+.form-grid input::placeholder,
+.query::placeholder,
+.schedule-input::placeholder {
+  color: rgba(226,232,240,0.3); /* soft slate */
+}
+
 .query {
   width: 100%;
-  min-height: 80px;
-  margin-bottom: 18px;
+  min-height: 60px;      /* shorter */
+  margin-bottom: 14px;
 }
 
 .animate-in {
@@ -79,6 +86,7 @@
 .input-row input {
   flex: 1;
 }
+
 .typing {
   font-size: 0.9rem;
   color: #94a3b8;
@@ -123,6 +131,441 @@
   color: #cbd5f5;
 }
 
+/* ===== FORCE RESEARCH CARD LAYOUT FIX ===== */
+
+.card.big.animate-in {
+  max-height: 520px !important;
+  height: auto !important;
+  padding: 22px 28px !important;
+  justify-content: center;
+}
+
+/* push card below navbar */
+.stage {
+  min-height: calc(100vh - 90px) !important;
+  padding-top: 60px !important;
+}
+
+/* title fix */
+.card-title {
+  text-align: center !important;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 16px !important;
+  width: 100%;
+  color: #f8fafc;
+  text-shadow: 0 0 10px rgba(56,189,248,.35);
+}
+
+/* tighten inputs */
+.form-grid {
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+}
+
+.query {
+  min-height: 60px !important;
+  margin-bottom: 14px !important;
+}
+
+/* ===== INTERVIEW CHAT UPGRADE ===== */
+
+.fixed-chat {
+  height: 520px;
+  max-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-box.fixed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* left / right alignment */
+.chat-message {
+  display: flex;
+  width: 100%;
+}
+
+.chat-message.ai {
+  justify-content: flex-start;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+/* override old bubbles */
+.chat-message .bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  line-height: 1.4;
+  animation: fadeIn .25s ease both;
+}
+
+.chat-message.ai .bubble {
+  background: rgba(255,255,255,.1);
+  color: #f8fafc;
+}
+
+.chat-message.user .bubble {
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  color: #020617;
+}
+
+/* ===== AI THINKING DOTS ===== */
+
+.thinking {
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.08);
+  border-radius: 14px;
+}
+
+.thinking span {
+  width: 6px;
+  height: 6px;
+  background: #38bdf8;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.thinking span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.thinking span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+/* ===== FIX SIDE RESEARCH PANEL ===== */
+
+.side-card {
+  height: 520px;
+  max-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-card p {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding-right: 6px;
+}
+
+/* nicer scrollbar (optional, premium look) */
+.side-card p::-webkit-scrollbar {
+  width: 6px;
+}
+
+.side-card p::-webkit-scrollbar-thumb {
+  background: rgba(56,189,248,0.4);
+  border-radius: 6px;
+}
+
+.side-card p::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== CHAT INPUT BAR CLEAN ===== */
+
+.input-row {
+  padding: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: transparent;   /* no dark bar */
+  backdrop-filter: none;
+}
+
+/* keep nice input */
+.input-row input {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: #f8fafc;
+  transition: all 0.25s ease;
+}
+
+.input-row input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
+  background: rgba(255,255,255,0.12);
+}
+
+/* send button */
+.input-row button {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  color: #020617;
+  transition: all 0.25s ease;
+}
+
+.input-row button,
+.confirm {
+  background: linear-gradient(135deg, #38bdf8, #60a5fa); /* softer blues */
+  color: #020617;
+  box-shadow: 0 0 8px rgba(56,189,248,0.35);
+}
+
+
+.input-row button:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 0 14px rgba(56,189,248,0.45);
+}
+
+/* ===== COPY FEEDBACK ANIMATION ===== */
+
+.copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+  color: #f8fafc;
+}
+
+.chat-message.ai .bubble {
+  position: relative;
+}
+
+.chat-message.ai .bubble:hover .copy-btn {
+  opacity: 1;
+}
+
+/* flash effect when copied */
+.copy-btn:active {
+  background: #38bdf8;
+  color: #020617;
+  animation: copiedFlash 0.6s ease;
+}
+
+/* ===== CARD TITLE UPGRADE ===== */
+
+.card h3,
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  color: #f8fafc;
+  text-shadow: 0 0 10px rgba(56,189,248,0.25);
+  position: relative;
+}
+
+.card h3::after,
+.card-title::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+}
+
+/* ===== RESEARCH SUMMARY TEXT ===== */
+
+.side-card p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #cbd5f5;
+}
+
+/* ===== SCHEDULE CARD FIX ===== */
+
+.schedule-grid.align {
+  display: grid;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+  justify-items: center;   /* center fields */
+}
+
+.schedule-field {
+  width: 100%;
+  max-width: 260px;
+  text-align: left;
+}
+
+.schedule-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.schedule-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: #f8fafc;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.schedule-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
+  background: rgba(255,255,255,0.12);
+}
+
+
+
+/* ===== FULL CENTER ALIGN FOR SCHEDULE CARD ===== */
+
+.schedule-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.schedule-card .subtext {
+  text-align: center;
+}
+
+.schedule-grid.align {
+  width: 100%;
+  justify-items: center;
+}
+
+.schedule-field {
+  text-align: center;
+}
+
+.schedule-field label {
+  text-align: center;
+}
+
+.schedule-input {
+  text-align: center;
+}
+
+.schedule-card .confirm {
+  margin-top: 10px;
+}
+
+/* ===== DARK SELECT DROPDOWN ===== */
+
+.schedule-input {
+  background: linear-gradient(145deg, rgba(15,23,42,.9), rgba(2,6,23,.95));
+  color: #f8fafc;
+}
+
+/* style the dropdown list itself */
+.schedule-input option {
+  background: #020617;
+  color: #f8fafc;
+}
+
+/* hover/active in dropdown */
+.schedule-input option:hover,
+.schedule-input option:checked {
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  color: #020617;
+}
+
+/* ===== DARK DATE PICKER (webkit browsers) ===== */
+
+input.schedule-input[type="date"] {
+  color-scheme: dark; /* tells browser to use dark theme UI */
+}
+
+/* icon tweak */
+input.schedule-input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.2);
+  cursor: pointer;
+}
+
+.schedule-card .card-title::after {
+  width: 85% !important;     /* almost full card */
+  max-width: 360px;
+  margin: 10px auto 0;      /* center it */
+}
+.card.big .card-title::after {
+  width: 85% !important;
+  max-width: 420px;
+  margin: 10px auto 0;
+}
+
+/* ===== END STAGE FULL PAGE MESSAGE ===== */
+
+.end-stage {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.end-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #f8fafc;
+  text-shadow: 0 0 20px rgba(56,189,248,.45);
+}
+
+.end-title span {
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.end-sub {
+  font-size: 1.2rem;
+  color: #e5e7eb;
+}
+
+.end-sub.muted {
+  color: #94a3b8;
+}
+
+.card {
+  background: linear-gradient(
+    145deg,
+    rgba(15,23,42,0.2),
+    rgba(2,6,23,0.4)
+  ) !important;
+
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+
+@keyframes copiedFlash {
+  0% { box-shadow: 0 0 0 rgba(56,189,248,0); }
+  50% { box-shadow: 0 0 16px rgba(56,189,248,0.8); }
+  100% { box-shadow: 0 0 0 rgba(56,189,248,0); }
+}
+
+
+@keyframes blink {
+  0% { opacity: .2; }
+  20% { opacity: 1; }
+  100% { opacity: .2; }
+}
 
 @keyframes slideOut {
   to { transform: translateX(-60px); opacity: 0; }
@@ -131,9 +574,4 @@
 @keyframes slideIn {
   from { transform: translateX(60px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateX(-40px); opacity: 0 }
-  to { transform: translateX(0); opacity: 1 }
 }

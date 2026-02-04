@@ -9,16 +9,13 @@ export default function EndStage({ agentState }) {
   return (
     <div className="end-stage slide-in">
       <h1 className="end-title">
-        Welcome <span>{name}</span> 🎉
+        Sorry <span>{name}</span>
       </h1>
 
       <p className="end-sub">
-        You are selected for the role of <strong>{role}</strong>
+        You are not eligible for <strong>{role}</strong>
       </p>
 
-      <p className="end-sub muted">
-        Your onboarding is now complete.
-      </p>
 
       <button className="confirm" onClick={() => nav("/")}>
         Go Home

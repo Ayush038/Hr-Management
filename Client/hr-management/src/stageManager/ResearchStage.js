@@ -37,12 +37,14 @@ export default function ResearchStage({ sessionId, setAgentState }) {
 
     const data = await res.json();
     setAgentState(data);
+    localStorage.setItem("candidate_name", data?.candidate_data?.name || "");
+    localStorage.setItem("candidate_role", data?.candidate_data?.job_role || "");
     setLoading(false);
   };
 
   return (
     <div className="card big animate-in">
-      <h2>Research & Candidate Profile</h2>
+      <h2 className="card-title">Research & Candidate Profile</h2>
 
       <div className="form-grid">
         <input name="name" placeholder="Full Name" onChange={handleProfileChange} />

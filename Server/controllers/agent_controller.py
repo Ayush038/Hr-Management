@@ -55,10 +55,15 @@ class AgentController:
                 if match.group(2).upper() == "PM" and hour != 12:
                     hour += 12
 
+                candidate_name = state.candidate_data.get("name") if state.candidate_data else None
 
                 res = requests.post(
                     f"{SERVER_URL}/computer/click",
-                    json={"date": date, "hour": hour},
+                    json={
+                        "date": date,
+                        "hour": hour,
+                        "name": candidate_name
+                    },
                     timeout=120
                 )
 
@@ -91,6 +96,9 @@ class AgentController:
             state.current_step = "end"
             state.messages.append("IT onboarding executed successfully.")
 
+            return state
+        
+        if state.current_step == "rejected":
             return state
 
         return state

@@ -2,8 +2,15 @@ import Swal from "sweetalert2";
 
 const SLOTS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
-export default function BookingModal({ date, bookedSlots, onClose, onBooked }) {
-  const name = "John Doe";
+export default function BookingModal({
+  date,
+  bookedSlots,
+  onClose,
+  onBooked
+}) {
+  const name =
+    localStorage.getItem("candidate_name")?.trim() ||
+    "Unknown Candidate";
 
   const handleClick = async (hour) => {
     await fetch("http://localhost:8000/api/book", {
@@ -43,7 +50,9 @@ export default function BookingModal({ date, bookedSlots, onClose, onBooked }) {
           <div className="slots">
             {SLOTS.map((h) => {
               const id = `slot-${date}-${h}`;
-              const isBooked = bookedSlots.some(b => b.time === `${String(h).padStart(2,"0")}:00`);
+              const isBooked = bookedSlots.some(
+                b => b.time === `${String(h).padStart(2,"0")}:00`
+              );
 
               return (
                 <button

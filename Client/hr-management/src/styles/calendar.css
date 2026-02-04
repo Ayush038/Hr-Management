@@ -1,14 +1,14 @@
-/* ================= PAGE ================= */
 .page {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at top, #1e293b, #020617);
+
+  background: transparent;
+
   animation: fadeIn 0.8s ease;
   color: #e5e7eb;
 }
 
-/* ================= MAIN CARD ================= */
 .card {
   backdrop-filter: blur(18px);
   background: linear-gradient(135deg, rgba(30,41,59,.6), rgba(2,6,23,.9));
@@ -27,7 +27,6 @@
   padding: 22px 28px;
 }
 
-/* ================= HEADER ================= */
 .title {
   text-align: center;
   margin-bottom: 8px;
@@ -59,7 +58,6 @@
   transform: scale(1.08);
 }
 
-/* ================= WEEKDAYS ================= */
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -73,7 +71,6 @@
   padding-bottom: 6px;
 }
 
-/* ================= CALENDAR GRID ================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -106,7 +103,6 @@
   pointer-events: none;
 }
 
-/* ================= MODAL OVERLAY ================= */
 .overlay {
   position: fixed;
   inset: 0;
@@ -117,7 +113,6 @@
   animation: fadeIn .35s ease;
 }
 
-/* ================= MODAL ================= */
 .modal {
   width: 720px;
   min-height: 440px;
@@ -131,7 +126,6 @@
   flex-direction: column;
 }
 
-/* ================= MODAL BODY ================= */
 .modal-body {
   display: flex;
   gap: 26px;
@@ -139,7 +133,6 @@
   flex: 1;
 }
 
-/* ================= SLOTS ================= */
 .slots {
   flex: 1;
   display: grid;
@@ -209,6 +202,28 @@
   color: #94a3b8;
   border: 1px solid rgba(255,255,255,.1);
 }
+
+/* ===== NAVBAR OFFSET FOR CALENDAR ===== */
+
+.calendar-page {
+  min-height: 100vh;
+  padding-top: 90px;           /* height of navbar */
+  box-sizing: border-box;
+}
+
+/* keep page centered but inside navbar space */
+.calendar-page .page {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+}
+
+/* reduce card height slightly to fit */
+.calendar-page .card.big {
+  height: min(76vh, 560px);    /* was 82vh / 620px */
+  max-height: calc(100vh - 140px);
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0 }

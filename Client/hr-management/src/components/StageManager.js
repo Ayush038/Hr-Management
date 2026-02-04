@@ -4,6 +4,7 @@ import ResearchStage from "../stageManager/ResearchStage";
 import InterviewStage from "../stageManager/InterviewStage";
 import ScheduleStage from "../stageManager/ScheduleStage";
 import EndStage from "../stageManager/EndStage";
+import RejectedStage from "../stageManager/RejectedStage";
 
 export default function StageManager({ sessionId, agentState, setAgentState }) {
   const step = agentState?.current_step || "research";
@@ -19,7 +20,16 @@ export default function StageManager({ sessionId, agentState, setAgentState }) {
         confirmButtonColor: "#38bdf8"
       });
     }
-
+    if (step === "rejected") {
+      Swal.fire({
+        title: "Not Selected",
+        text: "Unfortunately, you did not clear the interview.",
+        icon: "error",
+        background: "linear-gradient(135deg, rgba(30,41,59,.9), rgba(2,6,23,.95))",
+        color: "#e5e7eb",
+        confirmButtonColor: "#ef4444"
+      });
+    }
     if (step === "end") {
       Swal.fire({
         title: "Process Completed",
@@ -50,6 +60,7 @@ export default function StageManager({ sessionId, agentState, setAgentState }) {
       )}
 
       {step === "end" && <EndStage agentState={agentState} />}
+      {step === "rejected" && <RejectedStage agentState={agentState} />}
     </div>
   );
 }

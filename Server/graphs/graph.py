@@ -15,6 +15,6 @@ def build_graph():
 
     
     graph.add_edge("research", "interview")
-    graph.add_edge("interview", END)
+    # graph.add_edge("interview", END)
 
     return graph.compile()
